@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       
+        let array = [9,8,7,6,1,1,1,1,2,3,4,51,2,5,4,3,2,1];
+
+        function sorted(arr){
+            let len = arr.length;
+            for(let i = 0; i < len; i++){
+                let chosen = arr[i]
+
+                for(let k = i - 1; k > -1; k--){
+                    let temp = arr[k];
+                    
+                    if(chosen < arr[k]){
+                        arr[k] = chosen;
+                        arr[k + 1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+        console.log(sorted(array))
+    </script>
+</body>
+</html>

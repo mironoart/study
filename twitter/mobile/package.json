@@ -1,0 +1,39 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "@appandflow/touchable": "^2.0.0",
+    "@expo/ex-navigation": "^4.2.0",
+    "apollo-client": "^2.4.7",
+    "apollo-link-http": "^1.5.9",
+    "babel-plugin-transform-react-jsx-source": "^6.22.0",
+    "eslint-config-equimper": "^2.2.1",
+    "eslint-config-prettier": "^2.3.0",
+    "expo": "^31.0.2",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "react": "16.5.0",
+    "react-apollo": "^1.4.16",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-navigation": "^3.0.8",
+    "react-navigation-redux-helpers": "^2.0.9",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.1.3"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx-source": "^7.2.0",
+    "babel-plugin-styled-components": "^1.10.0",
+    "babel-preset-expo": "^5.0.0",
+    "eslint": "^4.3.0",
+    "prettier": "^1.15.3",
+    "redux-devtools-extension": "^2.13.7"
+  },
+  "private": true
+}

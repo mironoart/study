@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    
+        let first = 0.1 + 0.2;
+        let second = 0.3;
+        console.log( first == second ); // false
+        let second_2 = 0.30000000000000004; //Числа в JavaScript — это "64-битные значения двойной точности формата IEEE 754", согласно спецификации. Это имеет интересные последствия. В JavaScript нет такой вещи, как целое число
+        console.log(first == second_2); // true
+        console.log('--------------------------------------------------------------------------------')
+        
+
+        console.log( parseInt('12px') ) // 12
+        console.log(1/0)
+        console.log(null || 2 ) // 2
+        //Если левый аргумент – false, оператор И возвращает его и заканчивает вычисления. Иначе – вычисляет и возвращает правый аргумент.
+        console.log( 1 && 2 && null && 3 ); // null
+        console.log( 1 && 2 && 3 ); // 3
+        console.log( console.log(1) && console.log(2) ); // 1 undefined
+        if(-1) console.log( true ) // true
+        if(0) console.log( false ) // if(0) - это false
+        console.log('--------------------------------------------------------------------------------')
+    </script>
+</body>
+</html>

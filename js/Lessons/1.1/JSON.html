@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        let json = JSON.parse('{ "name": "Вася", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }'); // Вызов JSON.parse(str) превратит строку с данными в формате JSON в JavaScript-объект/массив/значение.
+        console.log(json); // выведет обьект с этими значениями
+        // Вот так нельзя:
+        //  name: "Вася", --- ошибка: ключ name без кавычек!  
+        // "surname": 'Петров', --- ошибка: одинарные кавычки у значения 'Петров'!
+
+        //Второй аргумент reviver:
+        let date = JSON.parse('{ "date": "2014-11-30T12:00:00.000Z"}', function(key, value){
+            if(key == "date") return new Date(value);
+            return value; // возвратит обьект Date date: Sun Nov 30 2014 14:00:00 GMT+0200
+        })
+        console.log(date)
+
+        console.log('--------------------------------------------------------------------------------')
+        
+        //JSON.stringify(value, replacer, space)
+        /* var room = {
+            number: 23,
+            toJSON: function() {   // что бы запарсилось обьекту нужно писать метод toJSON иначе игнор, по умолчанию функции игнорируются
+                return this.number;
+                }
+             };
+        */
+
+        var user = {
+            name: "Вася",
+            age: 25,
+            window: window  //window слишком большой обьек не парсится, нужно его убирать из обработки
+        };
+
+        var str = JSON.stringify(user, function(key, value) {  // или так( тож самое будет) -- JSON.stringify(user, ["name", "age"]) это второй аргумент
+            if (key == 'window') return undefined;
+            return value;
+        }, 2); // 2 -- 'это третий параметр -- количество пробелов для красивого форматировавния
+        console.log(str) // {"name":"Вася","age":25}
+        console.log('--------------------------------------------------------------------------------')
+
+        var leader = {
+            name: "Василий Иванович" 
+        };
+
+        var soldier = {
+            name: "Петька"
+        };
+
+        // эти объекты ссылаются друг на друга!
+        leader.soldier = soldier;
+        soldier.leader = leader;
+
+        var team = [leader, soldier];
+        
+
+        let teamToJSON = JSON.stringify(team, ['name']);
+        console.log(teamToJSON)
+    </script>
+</body>
+</html>

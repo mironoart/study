@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    
+       
+       console.log(new Date()) // Возвращает текущее время
+       console.log(+new Date()) // числовой вариант
+
+       //new Date(year, month, date, hours, minutes, seconds, ms)
+       //new Date(milisecconds)  -- выводит дату отсчитывая от 1970 
+
+        console.log(new Date(2011, 0, 1, 0, 0, 0, 0))
+        console.log(new Date().getFullYear())
+        console.log(new Date().getMonth())
+        console.log(new Date().getDate())
+        console.log(new Date().getHours())
+        console.log(new Date().getMinutes())
+        console.log(new Date().getSeconds())
+        console.log(new Date().getMilliseconds())
+        console.log(new Date().getDay()) // номер дня недели
+console.log('--------------------------------------------------------------------------------')
+        console.log(new Date().getUTCFullYear())
+        console.log(new Date().getUTCMonth())
+        console.log(new Date().getUTCDay())
+        console.log(new Date().getTime()) // озвращает число миллисекунд, прошедших с 1 января 1970 года GMT+0, 
+        console.log(new Date().getTimezoneOffset()) // Возвращает разницу между местным и UTC-временем, в минутах.
+
+        // засекает время на выполнение блока, что между консол логами
+        console.time("walkIn");
+        for(let i = 0; i<100000000; i++){}
+        console.timeEnd("walkIn");
+        //  оптимизации в браузере могут влиять на результаты тестов, поэтому измерять скорость базовых операций JavaScript («проводить микробенчмаркинг») до того, как вы изучите внутренности JavaScript-интерпретаторов и поймёте, что они реально делают на таком коде, не рекомендуется.
+
+        // Также можно установить дату:
+/*        
+        setFullYear(year [, month, date])
+        setMonth(month [, date])
+        setDate(date)
+        setHours(hour [, min, sec, ms])
+        setMinutes(min [, sec, ms])
+        setSeconds(sec [, ms])
+        setMilliseconds(ms)
+        setTime(milliseconds) (устанавливает всю дату по миллисекундам с 01.01.1970 UTC)
+ */   
+ console.log('--------------------------------------------------------------------------------')
+
+        var date = new Date();
+        var options = {
+            era: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long',
+            timezone: 'UTC',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        };
+
+        console.log( date.toLocaleString("ru", options) ); // среда, 31 декабря 2014 г. н.э. 12:30:00
+        console.log( date.toLocaleString("en-US", options) );
+        console.log(date.toString());
+        console.log(date.toDateString())
+        console.log(date.toTimeString())
+        console.log('--------------------------------------------------------------------------------')
+
+        /*
+        Этот формат выглядит так: YYYY-MM-DDTHH:mm:ss.sssZ, где:
+
+        YYYY-MM-DD – дата в формате год-месяц-день.
+        Обычный символ T используется как разделитель.
+        HH:mm:ss.sss – время: часы-минуты-секунды-миллисекунды.
+        Часть 'Z' обозначает временную зону – в формате +-hh:mm, либо символ Z, обозначающий UTC. По стандарту её можно не указывать, тогда UTC, но в Safari с этим ошибка, так что лучше указывать всегда.
+ */
+    </script>
+</body>
+</html>
