@@ -3,9 +3,13 @@ const fs = require("fs");
 
 var server = http.createServer((req, res) => {
   console.log("Request was made: ", req.url);
-  res.writeHead(200, { "Content-Type": "text/html" });
-  const myReadStream = fs.createReadStream(__dirname + "/index.html", "utf-8");
-  myReadStream.pipe(res);
+  res.writeHead(200, { "Content-Type": "application/json" });
+  const obj = {
+    name: "Andry",
+    job: "Web",
+    age: "24"
+  };
+  res.end(JSON.stringify(obj));
 });
 server.listen(3000, "127.0.0.1");
 console.log("Litening to poort 3000");
