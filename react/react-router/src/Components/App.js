@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import Writers from "./Writers";
 export default class App extends Component {
   state = {
     writers: []
@@ -15,6 +16,7 @@ export default class App extends Component {
     this.setState({ writers });
   }
   render() {
+    const { writers } = this.state;
     return (
       <BrowserRouter>
         {/* so it is fragment also  <React.Fragment> or  <Fragment>  it is replacing need of <div> </div> for placing inside several elements*/}
@@ -28,8 +30,15 @@ export default class App extends Component {
             </li>
           </ul>
           {/* exact --- need so render occurs only if the same  path applied in other case will render even if current url /writers*/}
-          <Route exact path="/" render={() => <div>Home</div>} />
-          <Route path="/writers" render={() => <div>Writers</div>} />
+          {/* Switch will much every router from top to bottom and render only those who first mutches and will ignore  others*/}
+          <Switch>
+            <Route exact path="/" render={() => <div>Home</div>} />
+            <Route
+              path="/writers"
+              render={props => <Writers {...props} writers={writers} />}
+            />
+            <Route render={() => <h3> Not Found! </h3>} />
+          </Switch>
         </>
       </BrowserRouter>
     );
