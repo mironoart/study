@@ -1,1 +1,0 @@
-./node_modules/.bin/json-server --watch store.json --port 3004
