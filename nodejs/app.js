@@ -7,6 +7,11 @@ const myReadStream = fs.createReadStream(__dirname + "/readMe.txt", "utf-8");
 const myWriteStream = fs.createWriteStream(__dirname + "/write.txt");
 
 //every time when new chunk recieved it fires this function ( every 65486 bytes)
+// 1. creating a stream
+// 2. Fulling buffer
+// 3. When buffer full it send chunk of data
+// 4. Writing this chunk on the disk -> repeat
+
 myReadStream.on("data", chunk => {
   console.log("new chunk recieved ---");
   /* console.log(chunk); */
