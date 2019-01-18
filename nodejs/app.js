@@ -12,6 +12,10 @@ app.get("/contact", (req, res) => {
   res.send("This is the contact");
 });
 
+app.get("/profile/:id", (req, res) => {
+  res.send(req.params.id);
+  console.log(req.params);
+});
 app.listen(3000);
 
 /* 
