@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import Writers from "./Writers";
+
 export default class App extends Component {
   state = {
     writers: []
@@ -11,8 +12,10 @@ export default class App extends Component {
       .then(res => res.json())
       .then(writers => this.setState({ writers })); 
     */
-
-    const writers = await (await fetch("http://localhost:3004/writers")).json();
+    // adding ?_embed=texts make available to see what authorId in texts corresponds to id in writers --- its json-server hook
+    const writers = await (await fetch(
+      "http://localhost:3004/writers?_embed=texts"
+    )).json();
     this.setState({ writers });
   }
   render() {

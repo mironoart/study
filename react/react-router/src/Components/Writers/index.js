@@ -1,6 +1,7 @@
 import React from "react";
-import { Link, Route, Redirect } from "react-router-dom";
-import Writer from "../Writer";
+import { Link, Route } from "react-router-dom";
+import Writer from "./Writer";
+import { NotFound } from "../Errors";
 
 export default ({ match: { url }, writers }) => (
   <>
@@ -16,14 +17,14 @@ export default ({ match: { url }, writers }) => (
 
     <Route
       path={`${url}/:writerId`}
-      render={({ match }) => {
+      render={props => {
         const writer = writers.find(
-          writer => writer.id === match.params.writerId
+          ({ id }) => id === props.match.params.writerId
         );
         if (!writer) {
-          return <Redirect to="/404" />;
+          return <NotFound />;
         }
-        return <Writer {...writer} />;
+        return <Writer {...props} {...writer} />;
       }}
     />
   </>
