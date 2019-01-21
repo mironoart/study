@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <% include partials/nav.ejs %>
+
+    <form method="POST" action="/contact">
+      <label for="name"> Name </label> <input type="text" name="name" />
+      <label for="age"> Age </label> <input type="text" name="age" />
+      <label for="submit"> Submit</label> <input type="submit" value="submit" />
+    </form>
+
+    <p style="float:left; margin-right: 50px;">
+      <strong style="margin-right: 5px">Name:</strong><%= qs.name %>
+    </p>
+
+    <p><strong style="margin-right: 5px"> Age:</strong><%= qs.age %></p>
+  </body>
+</html>

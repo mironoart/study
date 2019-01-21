@@ -1,13 +1,24 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
+
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.set("view engine", "ejs");
+
 app.use("/assets", express.static("assets")); // this mapping all files in assets directory and sending it to client
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+// will fire off if method of html form -- GET
 app.get("/contact", (req, res) => {
-  res.render("contact");
+  res.render("contact", { qs: req.query });
+});
+// will fire off if method of html form -- POST
+// when submit is clicked post method will ocure to the / contact and middleware urlencodedParser will fire off
+app.post("/contact", urlencodedParser, (req, res) => {
+  res.render("contact-success", { data: req.body });
 });
 
 app.get("/profile/:id", (req, res) => {
