@@ -1,20 +1,17 @@
-/* const http = require("http");
-const fs = require("fs"); */
-
 const express = require("express");
-
-// in express it evaluates right routes under the hood:
 const app = express();
+
+app.set("view engine", "ejs");
 app.get("/", (req, res) => {
-  res.send("This is the message");
+  res.sendFile(__dirname + "/index.html");
 });
 app.get("/contact", (req, res) => {
-  res.send("This is the contact");
+  res.sendFile(__dirname + "/contact.html");
 });
 
 app.get("/profile/:id", (req, res) => {
-  res.send(req.params.id);
-  console.log(req.params);
+  var data = { age: 30, job: "webDev" };
+  res.render("profile", { personId: req.params.id, data: data });
 });
 app.listen(3000);
 
