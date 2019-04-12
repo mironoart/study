@@ -15,18 +15,5 @@ class Logger {
 }
 
 //this class alow us create only one instance of the logger
-class Singleton {
-	// if Singleton instance not exist we will create one
 
-	constructor() {
-		if (!Singleton.instance) {
-			Singleton.instance = new Logger()
-		}
-	}
-
-	getInstance() {
-		return Singleton.instance
-	}
-}
-
-module.exports = Singleton
+module.exports = new Logger()
