@@ -1,6 +1,19 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const todoController = require("./controllers/todoController");
+
+app.set("view engine", "ejs");
+app.use(express.static("./public"));
+
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+todoController(app);
+
+app.listen(3000);
+console.log("Listening to the port 3000");
+
+/* 
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -27,7 +40,10 @@ app.get("/profile/:id", (req, res) => {
 });
 app.listen(3000);
 
-/* 
+
+
+
+
 
 app.use("/assets", function(req, res, next) {
   console.log(req.url); // if type ...3000:/assets will display  /  if type something else, will ignore this block of code
