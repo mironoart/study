@@ -3,7 +3,7 @@ var path = require('path')
 
 class ExitCommand {
 	get name() {
-		return 'exit... bye!'
+		return 'exit...bye!'
 	}
 
 	execute() {

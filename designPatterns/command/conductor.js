@@ -22,7 +22,7 @@ class Conductor {
 
 	redo() {
 		var command = this.undone.pop()
-		console.log(`undo ${command.name}`)
+		console.log(`redo ${command.name}`)
 		command.execute()
 		this.history.push(command)
 	}
