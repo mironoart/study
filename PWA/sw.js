@@ -51,8 +51,7 @@ self.addEventListener('activate', evt => {
 
 //fetch eventss
 self.addEventListener('fetch', evt => {
-   //   console.log('fetch event', evt)
-   evt.respondWith(
+/*    evt.respondWith(
       caches
          .match(evt.request)
          .then(cacheRes => {
@@ -73,4 +72,5 @@ self.addEventListener('fetch', evt => {
             }
          })
    )
+    */
 })
