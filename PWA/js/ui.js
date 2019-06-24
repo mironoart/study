@@ -25,5 +25,5 @@ const renderRecepy = (data, id) => {
   
   `
 
-   resipes.innerHTML = html
+   resipes.innerHTML += html
 }
