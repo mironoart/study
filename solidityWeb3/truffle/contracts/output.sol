@@ -1067,9 +1067,9 @@ pragma solidity ^0.5.0;
 
 
 
-contract ERC721SimpleContract is ERC721Full{
+contract Web3TestToken is ERC721Full{
   
-    constructor() ERC721Full("Simple", "SMPL") public {}
+    constructor() ERC721Full("web3TestToken", "WTT") public {}
 
     
     function mint(address to, uint256 tokenId) public  {

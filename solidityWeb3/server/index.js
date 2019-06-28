@@ -12,27 +12,27 @@ async function isError(func) {
 	}
 	return f;
 }
+
 //from metamask
 account1 = '0xbb8f59b1b9784de0dba59b8fc42b3c7e8085c84c';
-account2 = '0x93551618d1a62b4a2abbe6f7486d259a5fbb136c';
 
 const privateKey1 = Buffer.from(process.env.PRIVATE_ADDRESS_1, 'hex');
-const privateKey2 = Buffer.from(process.env.PRIVATE_ADDRESS_2, 'hex');
 
 async function test() {
 	let txHash;
 	let txCount;
 	let raw;
 
-	// Build transaction
-	txCount = await isError(web3.eth.getTransactionCount(account1));
+	const data =
+		'0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820478bd0acca031c0761031bf3cba25fd77b786fa0f53144b9eeb48c6e2b5056c90029';
 
+	// Build transaction
+	txCount = await web3.eth.getTransactionCount(account1);
 	const txObject = {
 		nonce: web3.utils.toHex(txCount),
-		to: account2,
-		value: web3.utils.toHex(web3.utils.toWei('1', 'ether')),
-		gasLimit: web3.utils.toHex(21000),
-		gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei'))
+		gasLimit: web3.utils.toHex(1000000), // Because its contract
+		gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+		data: data
 	};
 
 	// Sign transactions
@@ -42,45 +42,8 @@ async function test() {
 	raw = '0x' + serializedTransaction.toString('hex');
 
 	//Broadcast Transaction
-	txHash = await isError(web3.eth.sendSignedTransaction(raw));
+	txHash = await web3.eth.sendSignedTransaction(raw);
+	console.log(txHash);
 }
-test();
 
-/********************************************************************************** */
-/* 
-async function test() {
-	let res;
-	let res2;
-	try {
-		res = await web3.eth.getBalance(account1);
-		res2 = await web3.eth.getBalance(account2);
-	} catch (e) {
-		console.log('***********************************', e);
-	}
-	console.log(web3.utils.fromWei(res, 'ether'));
-	console.log(web3.utils.fromWei(res2, 'ether'));
-}
-test();
- */
-
-/* 
-async function test() {
-	let res;
-	try {
-		res = await contract.methods.mint().call();
-	} catch (e) {
-		console.log(e);
-	}
-	console.log(res);
-}
-test();
- */
-/* 
-contract.methods
-	.name()
-	.call()
-	.then((err, result) => {
-		console.log(err);
-		console.log(result);
-	});
- */
+isError(test());
