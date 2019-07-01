@@ -1,49 +1,29 @@
 require('dotenv').config();
-const web3 = require('./web3');
-const EthereumTx = require('ethereumjs-tx').Transaction;
-/***************************************************************************** */
 
-async function isError(func) {
-	let f;
-	try {
-		f = await func;
-	} catch (e) {
-		console.log('***********Errror!', e);
-	}
-	return f;
-}
+const express = require('express');
+//const bodyParser = require('body-parser');
+
+const app = express();
+/* 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use('/api/auth', auth);
+
 
 //from metamask
-account1 = '0xbb8f59b1b9784de0dba59b8fc42b3c7e8085c84c';
+account2 = '0x93551618d1a62b4a2abbe6f7486d259a5fbb136c';
+ownerAccount = process.env.OWNER_ACCOUNT;
+const privateKey1 = Buffer.from(process.env.OWNER_PRIVATE_KEY, 'hex');
 
-const privateKey1 = Buffer.from(process.env.PRIVATE_ADDRESS_1, 'hex');
 
-async function test() {
-	let txHash;
-	let txCount;
-	let raw;
+ */
 
-	const data =
-		'0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea165627a7a72305820478bd0acca031c0761031bf3cba25fd77b786fa0f53144b9eeb48c6e2b5056c90029';
+const smartContract = require('./smartContractAPI/smartContractApi');
 
-	// Build transaction
-	txCount = await web3.eth.getTransactionCount(account1);
-	const txObject = {
-		nonce: web3.utils.toHex(txCount),
-		gasLimit: web3.utils.toHex(1000000), // Because its contract
-		gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
-		data: data
-	};
+const port = process.env.PORT || 5000;
 
-	// Sign transactions
-	const tx = new EthereumTx(txObject, { chain: 'rinkeby' });
-	tx.sign(privateKey1);
-	const serializedTransaction = tx.serialize();
-	raw = '0x' + serializedTransaction.toString('hex');
-
-	//Broadcast Transaction
-	txHash = await web3.eth.sendSignedTransaction(raw);
-	console.log(txHash);
-}
-
-isError(test());
+app.listen(port, async () => {
+	console.log(`Server running on port ${port}`);
+	const temp = await smartContract.balanceOfAccount('0xbB8F59b1B9784De0DBa59B8fC42B3c7e8085c84C');
+	console.log(temp.toString());
+});
