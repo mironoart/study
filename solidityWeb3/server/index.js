@@ -1,7 +1,6 @@
 require('dotenv').config();
 const web3 = require('./web3');
-const EthereumTx = require('ethereumjs-tx').Transaction;
-/***************************************************************************** */
+const contract = require('./contract');
 
 async function isError(func) {
 	let f;
