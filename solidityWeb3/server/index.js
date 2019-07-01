@@ -1,59 +1,29 @@
 require('dotenv').config();
-const web3 = require('./web3');
-const contract = require('./contract');
-const EthereumTx = require('ethereumjs-tx').Transaction;
+
+const express = require('express');
+//const bodyParser = require('body-parser');
+
+const app = express();
+/* 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use('/api/auth', auth);
+
 
 //from metamask
-ownerAccount = '0xbB8F59b1B9784De0DBa59B8fC42B3c7e8085c84C';
 account2 = '0x93551618d1a62b4a2abbe6f7486d259a5fbb136c';
-const privateKey1 = Buffer.from(process.env.PRIVATE_ADDRESS_1, 'hex');
+ownerAccount = process.env.OWNER_ACCOUNT;
+const privateKey1 = Buffer.from(process.env.OWNER_PRIVATE_KEY, 'hex');
 
-async function isError(func) {
-	let f;
-	try {
-		f = await func;
-	} catch (e) {
-		console.log('***********Errror!', e);
-	}
-	return f;
-}
 
-async function readFunctions() {
-	var balanceOf = await contract.methods.balanceOf(account2).call();
-	var name = await contract.methods.name.call();
-	var ownerOf = await contract.methods.ownerOf(666).call();
-	var symbol = await contract.methods.symbol.call();
-	var tokenByIndex = await contract.methods.tokenByIndex(0).call();
-	var totalSupply = await contract.methods.totalSupply().call();
+ */
 
-	console.log('balance:', balanceOf.toString());
-	console.log('name:', name);
-	console.log('ownerOf:', ownerOf);
-	console.log('symbol:', symbol);
-	console.log('tokenByIndex:', tokenByIndex.toString());
-	console.log('totalSupply:', totalSupply.toString());
-}
+const smartContract = require('./smartContractAPI/smartContractApi');
 
-async function writefunctions() {
-	const txCount = await isError(web3.eth.getTransactionCount(ownerAccount));
+const port = process.env.PORT || 5000;
 
-	const txObject = {
-		nonce: web3.utils.toHex(txCount),
-		gasLimit: web3.utils.toHex(800000),
-		gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
-		to: '0x8a22ddaAa35402BD73d0ab75485ef7643cDa3AA8',
-		data: contract.methods.mint(account2, '111').encodeABI()
-	};
-
-	const tx = new EthereumTx(txObject, { chain: 'rinkeby' });
-	tx.sign(privateKey1);
-
-	const serializedTransaction = tx.serialize();
-	raw = '0x' + serializedTransaction.toString('hex');
-
-	txHash = web3.eth.sendSignedTransaction(raw);
-	console.log(txHash);
-}
-
-isError(writefunctions());
-//isError(readFunctions());
+app.listen(port, async () => {
+	console.log(`Server running on port ${port}`);
+	const temp = await smartContract.balanceOfAccount('0xbB8F59b1B9784De0DBa59B8fC42B3c7e8085c84C');
+	console.log(temp.toString());
+});
