@@ -1,0 +1,22 @@
+{
+	"name": "smart-contracts",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build_bin": "solcjs --bin -o data/bin/ src/*",
+		"build_abi": "solcjs --abi -o data/abi/ src/*",
+		"deploy": "node deploy",
+		"start": "npm run build_bin && npm run build_abi && npm run deploy"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"openzeppelin-solidity": "^1.12.0",
+		"solc": "^0.5.10",
+		"wait-port": "^0.2.2",
+		"web3": "^1.0.0-beta.55"
+	}
+}
