@@ -1,36 +1,25 @@
 var HelloWorld = artifacts.require('HelloWorld')
 
-contract('HelloWorld', function(accounts) {
-	it('should put 1000 coins in the owners account', function() {
-		return HelloWorld.deployed()
-			.then(function(instance) {
-				return instance.balance.call(accounts[0])
-			})
-			.then(function(balance) {
-				assert.equal(balance.valueOf(), 1000, "1000 wasn't in the account")
-			})
+contract('HelloWorld', accounts => {
+	it('should put 1000 coins in the owners account', async () => {
+		const instance = await HelloWorld.deployed()
+		const balance = await instance.balance.call(accounts[0])
+		const isTestPass = assert.equal(balance.valueOf(), 1000, "1000 wasn't in the account")
+		return isTestPass
 	})
 
-	it('should return the name Filip', function() {
-		return HelloWorld.deployed()
-			.then(function(instance) {
-				return instance.getName.call()
-			})
-			.then(function(name) {
-				assert.equal(name, 'Filip', 'the name was not filip')
-			})
+	it('should return the name Filip', async () => {
+		const instance = await HelloWorld.deployed()
+		const name = await instance.getName.call()
+		const isTestPass = assert.equal(name, 'Filip', 'the name was not filip')
+		return isTestPass
 	})
 
-	it('should return the name Bob', function() {
-		return HelloWorld.deployed().then(function(instance) {
-			return instance
-				.setName('Bob')
-				.then(function() {
-					return instance.getName.call()
-				})
-				.then(function(name) {
-					assert.equal(name, 'Bob', 'the name was not Bob')
-				})
-		})
+	it('should return the name Bob', async function() {
+		const instance = await HelloWorld.deployed()
+		await instance.setName('Bob')
+		const name = await instance.getName.call()
+		const isTestPass = assert.equal(name, 'Bob', 'the name was not Bob')
+		return isTestPass
 	})
 })
