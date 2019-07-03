@@ -23,7 +23,8 @@ const port = process.env.PORT || 5000;
 
 app.listen(port, async () => {
 	console.log(`Server running on port ${port}`);
-	const temp = await contract.transfer(account2, account3, 61);
+	//const temp = await contract.mint(account2, 63);
+	const temp = await contract.getOwnerOfToken(62);
 
 	console.log(temp.toString());
 });
