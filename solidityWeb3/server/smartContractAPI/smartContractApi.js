@@ -45,11 +45,11 @@ class SmartContractApi {
 		txHash = await web3.eth.sendSignedTransaction(raw);
 	}
 
-	async mint(toAddress, tokenId) {
-		this.callMethod('mint', toAddress, tokenId);
+	async mint(from, tokenId) {
+		this.callMethod('mint', from, tokenId);
 	}
-	async transfer(fromAddress, toAddress, tokenId) {
-		this.callMethod('safeTransferFrom', fromAddress, toAddress, tokenId);
+	async transfer(from, to, tokenId) {
+		this.callMethod('safeTransferFrom', from, to, tokenId);
 	}
 }
 
