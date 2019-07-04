@@ -1,9 +1,5 @@
-const hello = artifacts.require('./HelloWorld');
+const lobaco = artifacts.require('./LobacoContract');
 
-const helloSettings = {
-  name: "Filip"
-}
-
-module.exports = function(deployer){
-  deployer.deploy(hello);
+module.exports = function(deployer) {
+	deployer.deploy(lobaco);
 };
