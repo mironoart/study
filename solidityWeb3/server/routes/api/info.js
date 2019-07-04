@@ -81,9 +81,9 @@ async function mintToken(req, res) {
 	const { to, tokenId } = req.body;
 
 	try {
-		const response = await contract.mint(to, tokenId);
-		res.status(200).send(response.toString());
-	} catch (e) {
+		const txHash = await contract.mint(to, tokenId);
+		res.status(200).send(txHash);
+	} catch (err) {
 		res.status(400).json(e);
 	}
 }

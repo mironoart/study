@@ -29,27 +29,32 @@ class SmartContractApi {
 		return this.contract.methods.totalSupply().call();
 	}
 
-	async callMethod(methodName, ...params) {
-		const txCount = await web3.eth.getTransactionCount(this.ownerAddress);
-		const txObject = {
-			nonce: web3.utils.toHex(txCount),
-			gasLimit: web3.utils.toHex(800000),
-			gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
-			to: this.smartContractAddress,
-			data: this.contract.methods[methodName](...params).encodeABI()
-		};
-		const tx = new EthereumTx(txObject, { chain: this.chainName });
-		tx.sign(this.privateKey);
-		const serializedTransaction = tx.serialize();
-		const raw = '0x' + serializedTransaction.toString('hex');
-		txHash = await web3.eth.sendSignedTransaction(raw);
+	callMethod(methodName, ...params) {
+		return new Promise(async (resolve, reject) => {
+			const txCount = await web3.eth.getTransactionCount(this.ownerAddress);
+			const txObject = {
+				nonce: web3.utils.toHex(txCount),
+				gasLimit: web3.utils.toHex(800000),
+				gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+				to: this.smartContractAddress,
+				data: this.contract.methods[methodName](...params).encodeABI()
+			};
+			const tx = new EthereumTx(txObject, { chain: this.chainName });
+			tx.sign(this.privateKey);
+			const serializedTransaction = tx.serialize();
+			const raw = '0x' + serializedTransaction.toString('hex');
+			web3.eth.sendSignedTransaction(raw, (err, res) => {
+				if (err) reject(err);
+				else resolve(res);
+			});
+		});
 	}
 
-	async mint(from, tokenId) {
-		this.callMethod('mint', from, tokenId);
+	mint(to, tokenId) {
+		return this.callMethod('mint', to, tokenId);
 	}
-	async transfer(from, to, tokenId) {
-		this.callMethod('safeTransferFrom', from, to, tokenId);
+	transfer(from, to, tokenId) {
+		return this.callMethod('safeTransferFrom', from, to, tokenId);
 	}
 }
 
