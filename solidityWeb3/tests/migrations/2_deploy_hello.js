@@ -1,5 +1,5 @@
-const lobaco = artifacts.require('./LobacoContract');
+const lablaco = artifacts.require('./LablacoContract');
 
 module.exports = function(deployer) {
-	deployer.deploy(lobaco);
+	deployer.deploy(lablaco);
 };

@@ -1065,17 +1065,33 @@ contract Ownable {
 
 
 
-contract LobacoContract is ERC721Full{
+pragma solidity ^0.5.0;
+
+
+
+contract LablacoContract is ERC721Full{
   
-    constructor() ERC721Full("Lobaco", "LBL") public {}
+    constructor() ERC721Full("Lablaco", "LBL") public {}
 
-    
-    function mint(address to, uint256 tokenId) public  {
-        _mint(to, tokenId);
+    struct Item {
+        uint itemId;
+        uint userId;
+        string itemName;
+        string userName;
     }
     
-    function _mint(address to) public {
-        mint(to, totalSupply().add(1));
+    Item[] public items;
+    address owner = msg.sender;
+    
+    function addItemToBlockchain(uint _itemId, uint _userId, string memory _itemName, string memory _userName ) public{
+        require(msg.sender == owner);
+        items.push(Item(_itemId, _userId,_itemName, _userName));
+        _mint(owner, _itemId);
     }
-
+    
+    function transferItem(uint _itemId, uint _userId) public{
+        items[_itemId].userId = _userId;
+        
+    }
+    
 }
