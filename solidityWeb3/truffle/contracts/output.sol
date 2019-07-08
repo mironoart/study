@@ -1,7 +1,7 @@
-
+pragma solidity ^0.5.0;
 // File: openzeppelin-solidity/contracts/introspection/IERC165.sol
 
-pragma solidity ^0.5.0;
+
 
 /**
  * @dev Interface of the ERC165 standard, as defined in the
@@ -26,7 +26,7 @@ interface IERC165 {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/IERC721.sol
 
-pragma solidity ^0.5.0;
+
 
 
 /**
@@ -50,8 +50,6 @@ contract IERC721 is IERC165 {
     /**
      * @dev Transfers a specific NFT (`tokenId`) from one account (`from`) to
      * another (`to`).
-     *
-     * 
      *
      * Requirements:
      * - `from`, `to` cannot be zero.
@@ -81,7 +79,7 @@ contract IERC721 is IERC165 {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol
 
-pragma solidity ^0.5.0;
+
 
 /**
  * @title ERC721 token receiver interface
@@ -109,7 +107,7 @@ contract IERC721Receiver {
 
 // File: openzeppelin-solidity/contracts/math/SafeMath.sol
 
-pragma solidity ^0.5.0;
+
 
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
@@ -219,7 +217,7 @@ library SafeMath {
 
 // File: openzeppelin-solidity/contracts/utils/Address.sol
 
-pragma solidity ^0.5.0;
+
 
 /**
  * @dev Collection of functions related to the address type,
@@ -249,7 +247,7 @@ library Address {
 
 // File: openzeppelin-solidity/contracts/drafts/Counters.sol
 
-pragma solidity ^0.5.0;
+
 
 
 /**
@@ -288,7 +286,7 @@ library Counters {
 
 // File: openzeppelin-solidity/contracts/introspection/ERC165.sol
 
-pragma solidity ^0.5.0;
+
 
 
 /**
@@ -342,7 +340,7 @@ contract ERC165 is IERC165 {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/ERC721.sol
 
-pragma solidity ^0.5.0;
+
 
 
 
@@ -643,7 +641,7 @@ contract ERC721 is ERC165, IERC721 {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/IERC721Enumerable.sol
 
-pragma solidity ^0.5.0;
+
 
 
 /**
@@ -659,7 +657,7 @@ contract IERC721Enumerable is IERC721 {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/ERC721Enumerable.sol
 
-pragma solidity ^0.5.0;
+
 
 
 
@@ -860,7 +858,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/IERC721Metadata.sol
 
-pragma solidity ^0.5.0;
+
 
 
 /**
@@ -875,7 +873,7 @@ contract IERC721Metadata is IERC721 {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol
 
-pragma solidity ^0.5.0;
+
 
 
 
@@ -966,7 +964,7 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
 
 // File: openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol
 
-pragma solidity ^0.5.0;
+
 
 
 
@@ -985,7 +983,7 @@ contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata {
 
 // File: openzeppelin-solidity/contracts/ownership/Ownable.sol
 
-pragma solidity ^0.5.0;
+
 
 /**
  * @dev Contract module which provides a basic access control mechanism, where
@@ -1063,61 +1061,55 @@ contract Ownable {
 
 // File: contracts/ERC721SimpleContract.sol
 
-pragma solidity ^0.5.0;
-
-
-
 contract LablacoContract is ERC721Full{
-  
     constructor() ERC721Full("Lablaco", "LBL") public {}
-
     struct Item {
-        uint itemId;
         uint userId;
         string itemName;
         string userName;
     }
-    
     Item[] public items;
     address owner = msg.sender;
+
+
     
-    function addItemToBlockchain(uint _itemId, uint _userId, string memory _itemName, string memory _userName ) public{
-        require(msg.sender == owner);
-        items.push(Item(_itemId, _userId,_itemName, _userName));
-        _mint(owner, _itemId);
+    function addItemToBlockchain(uint _userId, string memory _itemName, string memory _userName ) public{
+        require(msg.sender == owner, "Only owner of contract allow to mint tokens!");
+        items.push(Item(_userId,_itemName, _userName));
+        _mint(owner, totalSupply());
     }
-    
+
     function transferItem(uint _itemId, uint _userId) public{
         items[_itemId].userId = _userId;
-        
     }
-    
 }
 
 
-
-
-
-
 /*
-// File: contracts/ERC721SimpleContract.sol
-/*
-pragma solidity ^0.5.0;
 
 
+contract LablacoContract is ERC721Full{
+    constructor() ERC721Full("Lablaco", "LBL") public {}
+    struct Item {
+        uint userId;
+        string itemName;
+        string userName;
+    }
+    Item[] public items;
+    address owner = msg.sender;
 
-contract Web3TestToken is ERC721Full{
-  
-    constructor() ERC721Full("web3TestToken", "WTT") public {}
 
     
-    function mint(address to, uint256 tokenId) public  {
-        _mint(to, tokenId);
-    }
-    
-    function _mint(address to) public {
-        mint(to, totalSupply().add(1));
+    function addItemToBlockchain(uint _userId, string memory _itemName, string memory _userName ) public{
+        require(msg.sender == owner);
+        items.push(Item(_userId,_itemName, _userName));
+        _mint(owner, totalSupply());
     }
 
+    function transferItem(uint _itemId, uint _userId) public{
+        items[_itemId].userId = _userId;
+    }
 }
+
+
  */
