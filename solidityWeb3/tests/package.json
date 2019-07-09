@@ -1,0 +1,18 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "This code was created together with my Youtube tutorial found here: https://www.youtube.com/watch?v=E8iRisPo7dY",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethereumjs-tx": "^2.0.0",
+    "web3": "^1.0.0-beta.55"
+  }
+}
